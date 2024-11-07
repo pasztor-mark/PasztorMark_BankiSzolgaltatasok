@@ -19,7 +19,7 @@ public class HitelSzamla extends Szamla {
     }
 
     public double getHitelKeret() {
-        return hitelkeret;
+        return this.hitelkeret;
     }
 }
 

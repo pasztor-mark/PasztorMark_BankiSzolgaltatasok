@@ -1,6 +1,6 @@
 package hu.petrik.bankiszolgaltatasok;
 
-public class Szamla extends BankiSzolgaltatas {
+public abstract class Szamla extends BankiSzolgaltatas {
     public double aktualisEgyenleg = 0;
     public Szamla(Tulajdonos tulajdonos) {
         super(tulajdonos);
@@ -17,11 +17,7 @@ public class Szamla extends BankiSzolgaltatas {
     public void befizet(double osszeg) {
         this.aktualisEgyenleg += osszeg;
     }
-    public boolean kivesz(int osszeg) {
-        if (this.aktualisEgyenleg - osszeg < 0) {
-            return false;
-        } else {return true;}
-    }
+    public abstract boolean kivesz(int osszeg);
     public Kartya ujKartya(String kartyaszam) {
         return new Kartya(this.tulajdonos, this, kartyaszam);
     }

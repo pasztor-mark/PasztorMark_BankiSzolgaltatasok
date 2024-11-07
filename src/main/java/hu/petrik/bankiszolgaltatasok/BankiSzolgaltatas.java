@@ -1,6 +1,6 @@
 package hu.petrik.bankiszolgaltatasok;
 
-public class BankiSzolgaltatas {
+public abstract class BankiSzolgaltatas {
     public  Tulajdonos tulajdonos;
     protected BankiSzolgaltatas(Tulajdonos tulajdonos) {
         this.tulajdonos = tulajdonos;

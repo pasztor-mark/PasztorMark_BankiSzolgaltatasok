@@ -7,31 +7,27 @@ import java.util.List;
 public class Bank {
     public ArrayList<Szamla> szamlaLista = new ArrayList<Szamla>();
 
-    /*void bank() throws IOException {
-        Szamla sz1 = szamlaNyitas(new Tulajdonos("Teszt János"), 0);
-        Szamla sz2 = szamlaNyitas(new Tulajdonos("Teszt Imre"), 3);
-        Szamla sz3 = szamlaNyitas(new Tulajdonos("Teszt Gyula"), 1);
-        szamlaLista.add(sz1);
-        szamlaLista.add(sz2);
-        szamlaLista.add(sz3);
-    }*/
 
     public Szamla szamlaNyitas(Tulajdonos tulajdonos, int hitelkeret) {
 
         if (hitelkeret == 0) {
-            return new MegtakaritasiSzamla(tulajdonos);
-        } else if (hitelkeret < 0) {
-            return new HitelSzamla(tulajdonos, hitelkeret);
+            MegtakaritasiSzamla megtakaritasiSzamla = new MegtakaritasiSzamla(tulajdonos);
+            szamlaLista.add(megtakaritasiSzamla);
+            return megtakaritasiSzamla;
+        } else if (hitelkeret > 0) {
+            HitelSzamla hitelSzamla = new HitelSzamla(tulajdonos, hitelkeret);
+            szamlaLista.add(hitelSzamla);
+            return hitelSzamla;
         } else {
-            throw new Error("nem lehet negatív");
+            throw new IllegalArgumentException("nem lehet negatív");
         }
 
     }
 
     public double getOsszEgyenleg(Tulajdonos tulajdonos) {
-        Bank bank = new Bank();
+
         double osszEgyenleg = 0;
-        for (Szamla szamla : bank.szamlaLista) {
+        for (Szamla szamla : szamlaLista) {
             if (szamla.getTulajdonos().equals(tulajdonos)) {
                 osszEgyenleg += szamla.getAktualisEgyenleg();
             }
@@ -56,7 +52,8 @@ public class Bank {
         double osszeg = 0;
         for (Szamla szamla : szamlaLista) {
             if (szamla instanceof HitelSzamla) {
-                osszeg += ((HitelSzamla)szamla).getHitelKeret();
+                HitelSzamla hitelSzamla = (HitelSzamla) szamla;
+                osszeg += hitelSzamla.getHitelKeret();
             }
         }
         return osszeg;
